@@ -1,31 +1,43 @@
-#!/usr/bin/env python
+# Modified from example:
+# http://sunlightfoundation.com/blog/2012/02/13/introducing-python-sunlight/
 # Copyright (c) 2012, BSD-3 clause, Sunlight Labs
 
 from sunlight import capitolwords
 from sunlight import congress
 
-phrase = "obamacare"
-# Today, we'll be printing out the Twitter IDs of all legislators that use
-# this phrase most in the congressional record.
+phrase = 'the'  # input_phrase
+start_date = '2011-10-05'  # input_date - 183
+end_date = '2013-11-16'  # input_date + 183
+legislator_id = 'K000352'  # input_bioguide_id
+# Today, we'll be printing out the names of all legislators that use
+# this phrase most in the congressional record during a period of time.
 
-for cw_record in capitolwords.phrases_by_entity(
-    "legislator",   # We're getting all legislators
-    sort="count",   # sorted by how much they say
-    phrase=phrase,  # this word
-)[:6]:  # We'll just try the top 5 legislators
 
-    legislator = congress.legislators(
-        bioguide_id=cw_record['legislator'],
-        #  Look up this biogude (unique ID) for every fed. legislator
-        all_legislators="true"  # search retired legislators
-    )
-    if len(legislator) >= 1:  # If we were able to find the legislator
-        legislator = legislator[0]  # (this is a search, so it's a list)
-        if legislator['twitter_id'] is not None:  # and they have a Twitter ID
-            print("%s. %s (@%s) said %s %s times" % (
-                legislator['title'],
-                legislator['last_name'],
-                legislator['twitter_id'],
-                phrase,
-                int(cw_record['count']))
-            )  # Print it to output :)
+def count_phrase_for_legislator(phrase, legislator_id, start_date, end_date):
+
+    for cw_record in capitolwords.phrases_by_entity(
+        "legislator",   # We're getting all legislators
+        # bioguide=legislator_id,
+        phrase=phrase,  # this word
+        start_date=start_date,
+        end_date=end_date,
+        sort="count",   # sorted by how much they say
+    )[:]:
+
+        legislator = congress.legislators(
+            bioguide_id=cw_record['legislator'],
+            #  Look up this biogude (unique ID) for every fed. legislator
+            all_legislators="true"  # search retired legislators
+        )
+
+        if len(legislator) >= 1:  # If we were able to find the legislator
+            legislator = legislator[0]  # (this is a search, so it's a list)
+            if cw_record['legislator'] == legislator_id:
+                print("%s. %s said %s %s times" % (
+                    legislator['title'],
+                    legislator['last_name'],
+                    phrase,
+                    int(cw_record['count']))
+                    )
+
+count_phrase_for_legislator(phrase, legislator_id, start_date, end_date)
