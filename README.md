@@ -7,6 +7,8 @@ To use this you need a `login.py` file that looks like this:
 
 ```
 keys = {
-    'nyt_article_search': '***my-key-goes-her***',
+    'nyt_article_search': '***my-key-goes-here***',
 }
 ```
+
+You can get a key from [developer.nytimes.com/register](developer.nytimes.com/register).
