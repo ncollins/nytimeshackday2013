@@ -25,21 +25,24 @@ def save_url(url, path, name):
 #qHealth = sunlight_query(congress='113', query='health care')
 #bHealth = get_json(sunlight_url(SUNLIGHT_CONGRESS_URL, 'bills/search', qHealth, keys['sunlight']))
 
-def save_bills(bs):
-    for b in bs['results']:
-        number = b['number']
-        title = b['official_title']
-        if b.get('last_version', None):
-            link = b['last_version']['urls']['html']
-            save_url(link, 'bill_text', str(number))
-
-def main():
-    MAX_PAGES = 500
+def get_bills(max_pages=100):
     loop = 0
-    while loop < MAX_PAGES:
+    while loop < max_pages:
         query = sunlight_query(congress='113', per_page='50', page=str(loop))
         url = sunlight_url(SUNLIGHT_CONGRESS_URL, 'bills', query, keys['sunlight'])
         bills = get_json(url)
-        save_bills(bills)
+        for b in bills['results']:
+            yield b
         loop = bills['page']['page'] + 1
-    return loop
+
+def valid_bill(bill):
+    return bill['history']['active']
+
+def main():
+    for b in get_bills(10):
+        if valid_bill(b) and b.get('last_version', None):
+            number = b['number']
+            title = b['official_title']
+            if b.get('last_version', None):
+                link = b['last_version']['urls']['html']
+                save_url(link, 'bill_text', str(number))
