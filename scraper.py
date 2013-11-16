@@ -7,7 +7,12 @@ SUNLIGHT_CONGRESS_URL = 'http://congress.api.sunlightfoundation.com/{method}?api
 def get_json(url):
     return requests.get(url).json()
 
-def sunlight_url(base, method, key):
+def sunlight_url(base, method, query, key):
     return base.format(method=method, key=key)
 
-print(get_json(sunlight_url(SUNLIGHT_CONGRESS_URL, 'bills', keys['sunlight'])))
+def sunlight_bills_query(query_dict):
+    return '&'.join(key+'='+value for key,value in query_dict.items())
+
+query = sunlight_bills_query({'congress': '113'})
+
+print(get_json(sunlight_url(SUNLIGHT_CONGRESS_URL, 'bills', query, keys['sunlight'])))
