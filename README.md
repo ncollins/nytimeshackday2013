@@ -7,8 +7,12 @@ To use this you need a `login.py` file that looks like this:
 
 ```
 keys = {
-    'nyt_article_search': '***my-key-goes-here***',
+    'nyt_article_search': '***'
+    'nyt_campaign_finance': '***',
+    'nyt_congress': '***',
+    'sunlight': '***',
 }
 ```
 
-You can get a key from [developer.nytimes.com/register](developer.nytimes.com/register).
+You can get a key from [developer.nytimes.com/register](developer.nytimes.com/register)
+and [http://sunlightfoundation.com/api/](http://sunlightfoundation.com/api/).
