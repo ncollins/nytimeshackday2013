@@ -22,10 +22,10 @@ for cw_record in capitolwords.phrases_by_entity(
     if len(legislator) >= 1:  # If we were able to find the legislator
         legislator = legislator[0]  # (this is a search, so it's a list)
         if legislator['twitter_id'] is not None:  # and they have a Twitter ID
-            print "%s. %s (@%s) said %s %s times" % (
+            print("%s. %s (@%s) said %s %s times" % (
                 legislator['title'],
                 legislator['last_name'],
                 legislator['twitter_id'],
                 phrase,
-                int(cw_record['count'])
+                int(cw_record['count']))
             )  # Print it to output :)
