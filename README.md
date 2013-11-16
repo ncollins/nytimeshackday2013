@@ -1,3 +1,12 @@
+sunlight-foundation
+===================
+
+Goal; Compute the complexity of each bill in congress. As a first crack, measure the number of references to laws. Usually, such references are particularly obscure.
+There is  not an easily-recognizable grammar to recognize legal citations inline, but a few common words will suffice for startsers;
+"United States Code", "Federal Register", U.S.C., "Public Law", "Private Law"
+
+
+
 nytimeshackday2013
 ==================
 
