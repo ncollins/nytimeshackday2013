@@ -5,22 +5,24 @@
 from sunlight import capitolwords
 from sunlight import congress
 
-phrase = 'health'  # input_phrase
-date_start = '2013-10-05'  # input_date - 183
-date_end = '2013-10-05'  # input_date + 183
-bioguide_id = 'K000352'
+phrase = 'the'  # input_phrase
+start_date = '2011-10-05'  # input_date - 183
+end_date = '2013-11-16'  # input_date + 183
+legislator_id = 'K000352'  # input_bioguide_id
 # Today, we'll be printing out the names of all legislators that use
 # this phrase most in the congressional record during a period of time.
 
 
-def count_phrase_for_legislator(phrase, bioguide_id, date_start, date_end):
+def count_phrase_for_legislator(phrase, legislator_id, start_date, end_date):
 
     for cw_record in capitolwords.phrases_by_entity(
         "legislator",   # We're getting all legislators
-        sort="count",   # sorted by how much they say
+        # bioguide=legislator_id,
         phrase=phrase,  # this word
-        legislator=bioguide_id
-    )[:6]:
+        start_date=start_date,
+        end_date=end_date,
+        sort="count",   # sorted by how much they say
+    )[:]:
 
         legislator = congress.legislators(
             bioguide_id=cw_record['legislator'],
@@ -30,12 +32,12 @@ def count_phrase_for_legislator(phrase, bioguide_id, date_start, date_end):
 
         if len(legislator) >= 1:  # If we were able to find the legislator
             legislator = legislator[0]  # (this is a search, so it's a list)
+            if cw_record['legislator'] == legislator_id:
+                print("%s. %s said %s %s times" % (
+                    legislator['title'],
+                    legislator['last_name'],
+                    phrase,
+                    int(cw_record['count']))
+                    )
 
-            print("%s. %s said %s %s times" % (
-                legislator['title'],
-                legislator['last_name'],
-                phrase,
-                int(cw_record['count']))
-            )  # Print it to output :)
-
-count_phrase_for_legislator(phrase, bioguide_id, date_start, date_end)
+count_phrase_for_legislator(phrase, legislator_id, start_date, end_date)
