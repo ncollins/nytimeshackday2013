@@ -12,14 +12,18 @@ def count_matches(words, text):
 def find_key_words(text):
     return []
 
-def sublists(l):
-    for high in range(len(l)):
-        for low in range(high):
-            yield l[low:high]
-
 def title_phrases(title):
-    #return [w for w in title.split() if w.istitle()]
-    return (' '.join(p) for p in sublists(title.split()) if all(w.istitle() for w in p))
+    phrases, current = [], []
+    for w in title.split():
+        if w.istitle():
+            current.append(w)
+        elif current != []:
+            phrases.append(current)
+            current = []
+    if current != []:
+        phrases.append(current)
+    return [' '.join(p) for p in phrases]
+
 
 test = '''
 
