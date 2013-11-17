@@ -9,6 +9,18 @@ def get_matches(words, text):
 def count_matches(words, text):
     return sum(len(m) for m in (re.findall(w, text) for w in words))
 
+def find_key_words(text):
+    return []
+
+def sublists(l):
+    for high in range(len(l)):
+        for low in range(high):
+            yield l[low:high]
+
+def title_phrases(title):
+    #return [w for w in title.split() if w.istitle()]
+    return (' '.join(p) for p in sublists(title.split()) if all(w.istitle() for w in p))
+
 test = '''
 
 [Congressional Bills 113th Congress]

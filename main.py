@@ -1,7 +1,7 @@
 
 import csv
 
-from bill_search import count_matches, words
+from bill_search import count_matches, words, title_phrases
 
 CSV_FILE = 'bills.csv'
 
@@ -11,6 +11,8 @@ def main():
         for (congress, chamber, number, introduced_on, sponsor, title, file_path) in reader:
             with open(file_path) as f:
                 print('{0}\nother documents: {1}'.format(title, count_matches(words, f.read())))
+                phrases = list(title_phrases(title))
+                print(phrases)
 
 
 if __name__ == '__main__':
