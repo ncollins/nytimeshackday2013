@@ -16,7 +16,7 @@ To use this you need a `login.py` file that looks like this:
 
 ```
 keys = {
-    'nyt_article_search': '***'
+    'nyt_article_search': '***',
     'nyt_campaign_finance': '***',
     'nyt_congress': '***',
     'sunlight': '***',
