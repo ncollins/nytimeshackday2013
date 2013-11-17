@@ -33,11 +33,12 @@ def count_phrase_for_legislator(phrase, legislator_id, start_date, end_date):
         if len(legislator) >= 1:  # If we were able to find the legislator
             legislator = legislator[0]  # (this is a search, so it's a list)
             if cw_record['legislator'] == legislator_id:
-                print("%s. %s said %s %s times" % (
-                    legislator['title'],
-                    legislator['last_name'],
-                    phrase,
-                    int(cw_record['count']))
-                    )
+                # print("%s. %s said %s %s times" % (
+                #     legislator['title'],
+                #     legislator['last_name'],
+                #     phrase,
+                #     int(cw_record['count']))
+                #     )
+                return int(cw_record['count'])
 
 count_phrase_for_legislator(phrase, legislator_id, start_date, end_date)
