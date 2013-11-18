@@ -14,8 +14,9 @@ phrase = 'the'  # input_phrase
 start_date = '2011-10-05'  # input_date - 183
 end_date = '2013-11-16'  # input_date + 183
 legislator_id = 'K000352'  # input_bioguide_id
-# Today, we'll be printing out the names of all legislators that use
-# this phrase most in the congressional record during a period of time.
+
+# return the count of how many times a certain legislator used
+# this phrase in the congressional record during a period of time.
 
 
 def count_phrase_for_legislator(phrase, legislator_id, start_date, end_date):
@@ -48,4 +49,4 @@ def count_phrase_for_legislator(phrase, legislator_id, start_date, end_date):
         return (legislator['title'] + ' ' +legislator['last_name'], int(cw_record['count']))
     return ('', 0)
 
-count_phrase_for_legislator(phrase, legislator_id, start_date, end_date)
+print(count_phrase_for_legislator(phrase, legislator_id, start_date, end_date))
