@@ -1,4 +1,5 @@
 import re
+import string
 
 words = ["United States Code", "Federal Register", "U.S.C.",
          "Public Law", "Private Law"]
@@ -12,6 +13,11 @@ def count_matches(words, text):
 def find_key_words(text):
     return []
 
+def strip_punc(phrase):
+    for punc in string.punctuation:
+        phrase = phrase.replace(punc, '')
+    return phrase
+
 def title_phrases(title):
     phrases, current = [], []
     for w in title.split():
@@ -22,7 +28,7 @@ def title_phrases(title):
             current = []
     if current != []:
         phrases.append(current)
-    return [' '.join(p) for p in phrases]
+    return (p for p in (strip_punc(' '.join(p)) for p in phrases if len(p) < 5) if len(p) > 3)
 
 
 test = '''
@@ -39,6 +45,3 @@ test = '''
 of Veterans Affairs a Veterans Economic Opportunity Administration, and 
                           for other purposes.
 '''
-
-print(get_matches([], test))
-print(count_matches(words, test))
