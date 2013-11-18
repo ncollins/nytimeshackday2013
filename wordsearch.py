@@ -4,6 +4,11 @@
 
 from sunlight import capitolwords
 from sunlight import congress
+import sunlight
+
+from login import keys
+
+sunlight.config.API_KEY = keys['sunlight']
 
 phrase = 'the'  # input_phrase
 start_date = '2011-10-05'  # input_date - 183
@@ -39,6 +44,8 @@ def count_phrase_for_legislator(phrase, legislator_id, start_date, end_date):
                 #     phrase,
                 #     int(cw_record['count']))
                 #     )
-                return int(cw_record['count'])
+                return (legislator['title'] + ' ' +legislator['last_name'], int(cw_record['count']))
+        return (legislator['title'] + ' ' +legislator['last_name'], int(cw_record['count']))
+    return ('', 0)
 
 count_phrase_for_legislator(phrase, legislator_id, start_date, end_date)
