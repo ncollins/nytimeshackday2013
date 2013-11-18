@@ -35,3 +35,6 @@ nosetests.xml
 .project
 .pydevproject
 login.py
+bill_text/*.txt
+bills.csv
+output.txt
